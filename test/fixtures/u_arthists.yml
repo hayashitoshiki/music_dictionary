@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  arthist: MyString
+  sex: 
+  voice: 
+  length: 
+  lyrics: 
+  genre1: 
+  genre2: 
+  lyrics_genre: 
+  generation: 
+  pick_up;int: MyString
+  name: MyString
+
+two:
+  arthist: MyString
+  sex: 
+  voice: 
+  length: 
+  lyrics: 
+  genre1: 
+  genre2: 
+  lyrics_genre: 
+  generation: 
+  pick_up;int: MyString
+  name: MyString

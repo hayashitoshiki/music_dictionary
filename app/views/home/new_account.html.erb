@@ -1,0 +1,102 @@
+<%= form_tag("/home/create")do %>
+<div id="center">
+
+  <div id="new_account_back">
+    <h2>アカウント登録</h2>
+    <P>性別</P>
+    <input type="radio" name="gender" value="1">男性
+    <input type="radio" name="gender" value="2">女性
+    <div class="error">
+      <%= flash[:gender] %>　
+    </div>
+    <p>生年月日</p>
+    <select id="year" name="year">
+      <option value="">--西暦--</option>
+    </select>
+    <select id="month" name="month">
+      <option value="">-月-</option>
+    </select>
+    <select id="day" name="day">
+      <option value="">-日-</option>
+    </select>
+    <div class="error">
+      <%= flash[:birthday] %>　
+    </div>
+    <p>メールアドレス</p>
+    <input type="text" name="email">
+    <div class="error">
+      <%= flash[:email] %>　
+    </div>
+    <p>アカウントID</p>
+    <input type="text" name="name">
+    <div class="error">
+      <%= flash[:name] %>　
+    </div>
+    <p>パスワード</p>
+    <input type="text" name="pw">
+    <div class="error">
+      <%= flash[:pw] %>　
+    </div>
+    <p>確認用パスワード</p>
+    <input type="text" name="pw2">
+    <div class="error">
+      <%= flash[:pw2] %>　
+    </div>
+    <div>
+      <input type="submit" class="account_button" value="登録">
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script>
+(function () {
+  //日付範囲決定
+  function calcDays() {
+    $('#day').empty();
+    var y = $('#year').val();
+    var m = $('#month').val();
+
+    if (m == "" || y == "") { //年か月が選択されていない時は31日まで表示
+      var last = 31;
+    } else if (m == 2 && ((y % 400 == 0) || ((y % 4 == 0) && (y % 100 != 0)))) {
+      var last = 29; //うるう年判定
+    } else {
+      var last = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)[m - 1];
+    }
+
+    $('#day').append('<option value="">日</option>');
+    for (var i = 1; i <= last; i++) {
+      if (d == i) { //日がすでに選択されている場合はその値が選択された状態で表示
+        $('#day').append('<option value="' + i + '" selected>' + i + '</option>');
+      } else {
+        $('#day').append('<option value="' + i + '">' + i + '</option>');
+      }
+    }
+  }
+
+  var d = 0;
+  $(function () {
+    //1900年～2015年まで表示
+    var now = new Date();
+    for (var i = now.getFullYear() - 5; i >= now.getFullYear() - 100; i--) {
+      $('#year').append('<option value="' + i + '">' + i + '</option>');
+    }
+    //1月～12月まで表示
+    for (var i = 1; i <= 12; i++) {
+      $('#month').append('<option value="' + i + '">' + i + '</option>');
+    }
+    //1日～31日まで表示
+    for (var i = 1; i <= 31; i++) {
+      $('#day').append('<option value="' + i + '">' + i + '</option>');
+    }
+
+    $('#day').change(function () {
+      d = $(this).val();
+    });
+    //年か月が変わるごとに日数を計算
+    $('#year').change(calcDays);
+    $('#month').change(calcDays);
+  });
+})();
+</script>

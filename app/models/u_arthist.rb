@@ -1,0 +1,2 @@
+class UArthist < ApplicationRecord
+end

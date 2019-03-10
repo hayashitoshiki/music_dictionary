@@ -1,0 +1,86 @@
+<%= form_tag("/account/set_arthist/#{@arthist.id}" )do %>
+<div id="set_arthist_center">
+  <div id="feature_back">
+    <p id="update_title"><%= @arthist.arthist %></p>
+    <p>ボーカル</p>
+    <input type="radio" name="gender" id="" value= "1" <%= checked="checked" if @arthist.gender == 1 %>>男性
+    <input type="radio" name="gender" id="" value= "2" <%= checked="checked" if @arthist.gender == 2 %>>女性
+
+    <p>声の高さ</p>
+    <div>低い</div>
+    <div>
+      <input type="radio" name="voice" value="1" <%= checked="checked" if @arthist.voice == 1 %>>
+      <input type="radio" name="voice" value="2" <%= checked="checked" if @arthist.voice == 2 %>>
+      <input type="radio" name="voice" value="3" <%= checked="checked" if @arthist.voice == 3 %>>
+      <input type="radio" name="voice" value="4" <%= checked="checked" if @arthist.voice == 4 %>>
+      <input type="radio" name="voice" value="5" <%= checked="checked" if @arthist.voice == 5 %>>
+    </div>
+    <div>高い</div>
+
+    <p>曲の長さ</p>
+    <div>短い</div>
+    <div>
+      <input type="radio" name="length" value="1" <%= checked="checked" if @arthist.length == 1 %>>
+      <input type="radio" name="length" value="2" <%= checked="checked" if @arthist.length == 2 %>>
+      <input type="radio" name="length" value="3" <%= checked="checked" if @arthist.length == 3 %>>
+      <input type="radio" name="length" value="4" <%= checked="checked" if @arthist.length == 4 %>>
+      <input type="radio" name="length" value="5" <%= checked="checked" if @arthist.length == 5 %>>
+    </div>
+    <div>長い</div>
+
+    <p>歌詞</p>
+    <div>日本語</div>
+    <div>
+      <input type="radio" name="lyrics" value="1" <%= checked="checked" if @arthist.lyrics == 1 %>>
+      <input type="radio" name="lyrics" value="2" <%= checked="checked" if @arthist.lyrics == 2 %>>
+      <input type="radio" name="lyrics" value="3" <%= checked="checked" if @arthist.lyrics == 3 %>>
+      <input type="radio" name="lyrics" value="4" <%= checked="checked" if @arthist.lyrics == 4 %>>
+      <input type="radio" name="lyrics" value="5" <%= checked="checked" if @arthist.lyrics == 5 %>>
+    </div>
+    <div>英語</div>
+
+    <p>ジャンル</p>
+    <select name="genre1">
+      <option value="0"></option>
+      <option value="1" <%= selected="selected" if @arthist.genre1 == 1 %>>J-ROCK</option>
+      <option value="2" <%= selected="selected" if @arthist.genre1 == 2 %>>J-POP</option>
+      <option value="3" <%= selected="selected" if @arthist.genre1 == 3 %>>ROCK</option>
+      <option value="4" <%= selected="selected" if @arthist.genre1 == 4 %>>POPS</option>
+    </select>
+
+    <p>ジャンル2</p>
+    <select name="genre2">
+      <option value="0"></option>
+      <option value="1" <%= selected="selected" if @arthist.genre2 == 1 %>>メロコア</option>
+      <option value="2" <%= selected="selected" if @arthist.genre2 == 2 %>>パンク</option>
+      <option value="3" <%= selected="selected" if @arthist.genre2 == 3 %>>ラウド</option>
+      <option value="4" <%= selected="selected" if @arthist.genre2 == 4 %>>メタル</option>
+      <option value="5" <%= selected="selected" if @arthist.genre2 == 5 %>>その他</option>
+    </select>
+
+    <p>歌詞の特徴</p>
+    <select name="lyrics_genre">
+      <option value="0"></option>
+      <option value="1" <%= selected="selected" if @arthist.lyrics_genre == 1 %>>応援</option>
+      <option value="2" <%= selected="selected" if @arthist.lyrics_genre == 2 %>">政治</option>
+      <option value="3" <%= selected="selected" if @arthist.lyrics_genre == 3 %>>社会</option>
+      <option value="4" <%= selected="selected" if @arthist.lyrics_genre == 4 %>>恋愛</option>
+      <option value="5" <%= selected="selected" if @arthist.lyrics_genre == 5 %>>季節</option>
+      <option value="6" <%= selected="selected" if @arthist.lyrics_genre == 6 %>>ネタ</option>
+      <option value="7" <%= selected="selected" if @arthist.lyrics_genre == 7 %>>その他</option>
+    </select>
+
+    <p>重点を置く音</p>
+    <select name="pick_up">
+      <option value="0"></option>
+      <option value="1" <%= selected="selected" if @arthist.pick_up == 1 %>>ボーカル</option>
+      <option value="2" <%= selected="selected" if @arthist.pick_up == 2 %>>ギター</option>
+      <option value="3" <%= selected="selected" if @arthist.pick_up == 3 %>>ベース</option>
+      <option value="4" <%= selected="selected" if @arthist.pick_up == 4 %>>ドラム</option>
+      <option value="5" <%= selected="selected" if @arthist.pick_up == 5 %>>その他</option>
+    </select>
+
+    <input type="submit" id="update_push" value="登録">
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicDictionary</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+      <header class="titlebar">
+        <h1>Music Dictionary</h1>
+        <div>
+          <a href="/" id="account">Home</a>
+          <a href="#" id="account">About</a>
+          <% if session[:user_name] %>
+          <a href="/account" id="account">Account</a>
+          <% else %>
+            <a href="/login" id="account">Login</a>
+            <% end %>
+        </div>
+      </header>
+      <%= yield %>
+  </body>
+</html>

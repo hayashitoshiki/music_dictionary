@@ -1,0 +1,22 @@
+<div id="center">
+  <div id="account_back">
+    <div style="font-size:30px">
+      <%= @notice %>
+    </div>
+    <p>登録したアーティスト</p>
+
+    <% @arthists.each do |arthist| %>
+      <div id="center">
+        <p class="inline">
+          <%= arthist.arthist %>
+        </p>
+        <%= link_to '変更',{:controller => 'home', :action => 'update_arthist', :arthist => arthist.arthist}, class: "account_button" %>
+        <%= link_to '削除',{ :controller => 'arthist', :action => 'delete', :arthist => arthist.arthist}, class: "account_button" %>
+      </div>
+    <% end %>
+
+    <a href="/account/set_arthist" class="account_button2">アーティスト情報登録</a>
+
+    <%= link_to("ログアウト","/sign_out",{method: :post, :class => 'account_button2'}) %>
+  </div>
+</div>

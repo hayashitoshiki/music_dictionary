@@ -1,0 +1,128 @@
+
+  <div id="sreach2">
+    <p id="title">Let's find new music</p>
+    <p id="error"><%= @check %></p>
+    <div>
+      <a href="/" id="arthist_name">名前</a>
+      <a href="/feature" id="music_about">特徴</a>
+    </div>
+
+    <div id="center">
+      <div id="feature_back">
+        <%= form_tag("/feature/result")do %>
+        <p>ボーカル</p>
+        <input type="radio" name="gender" id="gender1" value="1">男性
+        <input type="radio" name="gender" id="gender2" value="2">女性
+
+        <p>声の高さ</p>
+        <div>低い</div>
+        <div>
+          <input type="radio" id="voice1" name="voice" value="1">
+          <input type="radio" id="voice2" name="voice" value="2">
+          <input type="radio" id="voice3" name="voice" value="3">
+          <input type="radio" id="voice4" name="voice" value="4">
+          <input type="radio" id="voice5" name="voice" value="5">
+        </div>
+        <div>高い</div>
+
+        <p>曲の長さ</p>
+        <div>短い</div>
+        <div>
+          <input type="radio" id="length1" name="length" value="1">
+          <input type="radio" id="length2" name="length" value="2">
+          <input type="radio" id="length3" name="length" value="3">
+          <input type="radio" id="length4" name="length" value="4">
+          <input type="radio" id="length5" name="length" value="5">
+        </div>
+        <div>長い</div>
+
+        <p>歌詞</p>
+        <div>日本語</div>
+        <div>
+          <input type="radio" id="lyrics1" name="lyrics" value="1">
+          <input type="radio" id="lyrics2" name="lyrics" value="2">
+          <input type="radio" id="lyrics3" name="lyrics" value="3">
+          <input type="radio" id="lyrics4" name="lyrics" value="4">
+          <input type="radio" id="lyrics5" name="lyrics" value="5">
+        </div>
+        <div>英語</div>
+
+        <p>ジャンル</p>
+        <select name="genre1">
+          <option value="0">指定なし</option>
+          <option value="1">J-ROCK</option>
+          <option value="2">J-POP</option>
+          <option value="3">ROCK</option>
+          <option value="4">POPS</option>
+        </select>
+
+        <p>ジャンル2</p>
+        <select name="genre2" id="genre2">
+          <option value="0">　　　　</option>
+
+        </select>
+
+        <p>歌詞の特徴</p>
+        <select name="lyrics_genre">
+          <option value="0">指定なし</option>
+          <option value="1">応援</option>
+          <option value="2">政治</option>
+          <option value="3">社会</option>
+          <option value="4">恋愛</option>
+          <option value="5">季節</option>
+          <option value="6">ネタ</option>
+          <option value="7">その他</option>
+        </select>
+
+        <p>年代</p>
+        <select name="generation">
+          <option value="0">指定なし</option>
+          <option value="1">10代</option>
+          <option value="2">20代</option>
+          <option value="3">30代</option>
+          <option value="4">40代</option>
+          <option value="5">50代</option>
+          <option value="6">60代～</option>
+        </select>
+
+        <input type="submit" value="検索" id="search_push">
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'application' %>
+<% if !(@check.blank?) %>
+ <script>
+   $('#search_push').click(function(){
+      alert('アーティスト情報の登録数が足りません');
+      return false;
+    });
+  </script>
+<% end %>
+<<script>
+  var nowchecked = [];
+  $('input[type="radio"]:checked').each(function(){
+    nowchecked.push( $(this).attr('id') );
+  });
+
+  $('input[type="radio"]').click(function(){
+    var idx = $.inArray( $(this).attr('id'), nowchecked ); 
+  	if( idx >= 0 ) {
+  		$(this).prop('checked', false);
+  		nowchecked.splice(idx,1);
+  	} else {
+      var name = $(this).attr('name');
+      $('input[name="' + name + '"]').each(function(){
+        var idx2 = $.inArray( $(this).attr('id'), nowchecked);
+        if( idx2 >= 0 ){
+          nowchecked.splice(idx2,1);
+        }
+      });
+  		nowchecked.push( $(this).attr('id') );
+  	}
+  });
+
+</script>

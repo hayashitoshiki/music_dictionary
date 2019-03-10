@@ -1,0 +1,428 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+ // Custom bootstrap variables must be set or imported *before* bootstrap.
+ @import "bootstrap";
+
+body {
+  background-image: url("home_bg.jpg");
+  background-attachment: fixed;
+  font-family: serif;
+}
+
+body::after {
+  background-color: rgba(0, 0, 0, 0.50);
+  position: fixed;
+  /*固定配置*/
+  top: 0;
+  left: 0;
+  /*左上に固定*/
+  width: 100%;
+  height: 100%;
+  /*画面全体を覆う*/
+  content: "";
+  z-index: -1;
+  /*背景にするため*/
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+header{
+  z-index: 1;
+}
+
+#error {
+  font-size: 22px;
+  color: rgb(221, 0, 0);
+}
+
+.titlebar {
+  position: fixed;
+  background-color: rgba(135, 135, 135, 1);
+  width: 100%;
+}
+
+.titlebar h1 {
+  display: inline-block;
+}
+
+.titlebar div {
+  display: inline-block;
+  float: right;
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.titlebar div a {
+  margin-right: 25px;
+  padding: 0;
+  color: #FFF;
+  text-decoration: none;
+}
+
+#account {
+  color: #FFF;
+}
+
+#sreach {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  margin: auto;
+  width: 600px;
+  height: 300px;
+  text-align: center;
+}
+
+#title {
+  font-size: 65px;
+  font-family: serif;
+  margin: auto;
+  margin-bottom: 25px;
+  color: rgb(212, 212, 212);
+}
+
+#arthist_name {
+  display: inline-block;
+  padding: 7px 20px;
+  border-radius: 25px;
+  border-style: none;
+  text-decoration: none;
+  outline: none;
+  color: #FFF;
+  background-image: linear-gradient(45deg, #025979, #1B334B);
+  transition: .4s;
+}
+
+#music_about {
+  display: inline-block;
+  padding: 7px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #FFF;
+  background-image: linear-gradient(45deg, #7e5f01, #ff8b5f);
+  transition: .4s;
+}
+
+/*------------詳細検索---------*/
+#overlay{
+  z-index:1;
+  	display:none;
+  	position:fixed;
+  	top:0;
+  	left:0;
+  	width:100%;
+  	height:120%;
+  	background-color:rgba(0,0,0,0.75);
+}
+#sreach2{
+
+position:fixed;
+padding: 2px;
+margin: 5px;
+  text-align: center;
+  display: none;
+  z-index: 9999;
+  border:2px solid #aaa;
+  background:#fff;
+}
+
+#center {
+  text-align: center;
+}
+
+#feature_back {
+	border:2px solid #aaa;
+	background:#fff;
+}
+
+#sreach2 div {
+  display: inline-block;
+}
+
+#search_push {
+  display: block;
+  margin: auto;
+  padding: 7px 20px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  color: #FFF;
+  background-image: linear-gradient(45deg, #9697a8 0%, #595d69 100%);
+  transition: .4s;
+}
+
+select {
+  font-size: 15px;
+}
+
+.search_container {
+  background-color: rgb(255, 255, 255);
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid #999;
+  display: block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.3em;
+  width: 225px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin: auto;
+}
+
+.search_container input[type="text"] {
+  border: none;
+  height: 2.0em;
+}
+
+.search_container input[type="submit"] {
+  cursor: pointer;
+  font-size: 1.3em;
+  border: none;
+  background: none;
+  color: #3879D9;
+  position: absolute;
+  width: 2.5em;
+  height: 2.5em;
+  right: 0;
+  top: -10px;
+  outline: none;
+}
+
+.new_account {
+  text-align: center;
+}
+
+.title2 {
+  float: right;
+}
+
+.f_title_left {
+  float: left;
+}
+
+.f_title_right {
+  float: right;
+}
+
+input[type=radio] {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+/*-----------検索結果------------------*/
+
+#result_base {
+  display: inline-block;
+  width: 45%;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.73);
+  font-size: 25px;
+  margin-top: 450px;
+  width: 700px;
+}
+
+#result_base p {
+  display: inline-block;
+}
+
+.result_name {
+  font-weight: 800;
+}
+
+#result_base ul li {
+  display: block;
+  float: left;
+  list-style-type: none;
+  text-align: center;
+  width: 50%;
+  font-size: 20px;
+}
+
+#result_base ul li div {
+  display: inline-block;
+}
+
+.kari {
+  width: 250px;
+  height: 130px;
+}
+
+.evaluation {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  color: gray;
+}
+
+.evaluation input[type='radio'] {
+  display: none;
+}
+
+.evaluation label {
+  position: relative;
+  margin-top: 20px;
+  padding: 10px 10px 0;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.evaluation label .text {
+  position: absolute;
+  left: 0;
+  top: 2;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+}
+
+.star {
+  color: #ffcc00;
+}
+
+/*-------------------ログイン---------*/
+
+#login_back {
+  background-color: rgba(224, 224, 224, 1);
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  margin: auto;
+  width: 340px;
+  height: 255px;
+  text-align: center;
+}
+
+.error {
+  color: rgb(255, 0, 0);
+}
+
+#set_arthist_center {
+  display: inline-block;
+  position: absolute;
+  margin-top: 100px;
+  width: 1300px;
+  height: 300px;
+  text-align: center;
+}
+
+/*---------------------------------------------*/
+
+#new_account_back {
+  background-color: rgba(224, 224, 224, 1);
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  margin: auto;
+  width: 300px;
+  height: 640px;
+  text-align: center;
+}
+
+#show_base {
+  display: inline-block;
+  width: 45%;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.73);
+  margin-top: 50px;
+  width: 1000px;
+}
+
+table th, table td {
+  border: solid 1px black;
+  /*実線 1px 黒*/
+}
+
+/*------------------アカウント詳細画面---------------*/
+
+#account_back {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.73);
+  text-align: center;
+  margin-top: 160px;
+  width: 25%;
+}
+
+.account_button {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #f2f2f2;
+  background-image: linear-gradient(45deg, #9697a8 0%, #595d69 100%);
+  border: solid 1px #595d69;
+  /*線色*/
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  margin-top: 5px;
+}
+
+.account_button2 {
+  display: table;
+  padding: 0.25em 0.5em;
+  text-decoration: none;font-size: 15px;
+  color: #f2f2f2;
+  background-image: linear-gradient(45deg, #025979, #1B334B);
+  /*色*/
+  border: solid 1px #002634;
+  /*線色*/
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  margin-top: 5px;
+}
+
+.inline {
+  display: inline-block;
+  width: 200px;
+}
+
+/*-------------アーティスト情報変更------------------------*/
+
+#update_title {
+  font-size: 35px;
+}
+
+#update_push {
+  display: block;
+  margin: auto;
+  padding: 7px 20px;
+  border-radius: 25px;
+  border: none;
+  text-decoration: none;
+  color: #FFF;
+  background-image: linear-gradient(45deg, #cbd1e2 0%, #8f909a 100%);
+  transition: .4s;
+}

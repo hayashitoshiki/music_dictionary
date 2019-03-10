@@ -1,0 +1,345 @@
+<div id="sreach">
+  <p id="title">Let's find new music</p>
+  <p id="error"><%= @check %></p>
+
+  <%= search_form_for @arthist, url: result_path,:html => {:class => "search_container"} do |f| %>
+  <%= f.text_field :name_cont, :placeholder => "アーティスト名", required: true %>
+  <input id="sreach1" type="submit" value="&#xf002;" class="fas fa-search" onclick=" return checkalert();">
+  <% end %>
+  <% if @art.blank? %>
+  <div style="margin-top: 90px">
+    <input type="button" id="arthist_name" value="特徴検索へ" onclick="hyoji1">
+  </div>
+  <% else %>
+  <div style="margin-left: 350px">
+    <input type="button" id="arthist_name" value="特徴検索へ" onclick="hyoji1">
+  </div>
+  <% end %>
+</div>
+
+
+<div id="sreach2">
+
+    <p style="font-size:30px">特徴検索</p>
+    <%= search_form_for @arthist, url: result_path do |t| %>
+    <p>ボーカル</p>
+    <%= t.radio_button :gender_eq, "男" %> 男性
+    <%= t.radio_button :gender_eq, "女" %> 女性
+
+    <p>声の高さ</p>
+    <div>低い</div>
+    <%= t.radio_button :voice_eq, 1 %>
+    <%= t.radio_button :voice_eq, 2 %>
+    <%= t.radio_button :voice_eq, 3 %>
+    <%= t.radio_button :voice_eq, 4 %>
+    <%= t.radio_button :voice_eq, 5 %>
+    <div>高い</div>
+
+    <p>曲の長さ</p>
+    <div>短い</div>
+    <%= t.radio_button :length_eq, 1 %>
+    <%= t.radio_button :length_eq, 2 %>
+    <%= t.radio_button :length_eq, 3 %>
+    <%= t.radio_button :length_eq, 4 %>
+    <%= t.radio_button :length_eq, 5 %>
+    <div>長い</div>
+
+    <p>歌詞</p>
+    <div>日本語</div>
+    <%= t.radio_button :lyrics_eq, 1 %>
+    <%= t.radio_button :lyrics_eq, 2 %>
+    <%= t.radio_button :lyrics_eq, 3 %>
+    <%= t.radio_button :lyrics_eq, 4 %>
+    <%= t.radio_button :lyrics_eq, 5 %>
+    <div>英語</div>
+
+    <p>ジャンル</p>
+    <%= t.select :genre1_cont,[["J-ROCK", "J-ROCK"], ["J-POP", "J-POP"],
+     ["ROCK", "J-POP"], ["POPS", "J-POP"]],{:prompt => "　　"}, :id => 'genre1' %>
+
+    <p>ジャンル2</p>
+    <%= t.select :genre2_cont,[],{:prompt => "　 　"}, :id => 'genre2' %>
+
+    <p>歌詞の特徴</p>
+    <%= t.select :lyrics_genre_cont,[["応援", "応援"], ["政治", "政治"],
+     ["社会", "社会"], ["恋愛", "恋愛"],["ネタ", "ネタ"], ["その他", "その他"]],
+       :prompt => "　　" %>
+
+    <%= t.submit "検索" ,:id => "search_push"%>
+    <% end %>
+</div>
+
+<% if !(@art.blank?) %>
+<div id="center">
+  <div id="result_base">
+    <% if @arthists.blank? %>
+      <div>一致するアーティストは見つかりませんでした</div>
+    <% end %>
+
+    <% @arthists.each do |art| %>
+      <div style="height: 360px; border: 1px solid #333333;">
+
+        <p class="result_name"><%= art.name %></p>
+        <ul>
+          <li>
+            <div style="display:block">
+              <p class="account_button2"><%= art.gender %></p>
+              <p class="account_button2"><%= art.genre1 %></p>
+              <p class="account_button2"><%= art.genre2 %></p>
+              <p class="account_button2"><%= art.lyrics_genre %></p>
+            </div>
+            声の高さ
+            <div class="evaluation">
+              <input id="star1" type="radio" name="star" value="1"/>
+              <label for="star1" class="<%= "star" if art.voice == 1 %>">
+                <span class="text">低い</span>★</label>
+              <input id="star2" type="radio" name="star" value="2"/>
+              <label for="star2" class="<%= "star" if art.voice == 2 %>">★</label>
+              <input id="star3" type="radio" name="star" value="3"/>
+              <label for="star3" class="<%= "star" if art.voice == 3 %>">
+                <span class="text">普通</span>★</label>
+              <input id="star4" type="radio" name="star" value="4"/>
+              <label for="star4" class="<%= "star" if art.voice == 4 %>">★</label>
+              <input id="star5" type="radio" name="star" value="5"/>
+              <label for="star5" class="<%= "star" if art.voice == 5 %>">
+                <span class="text">高い</span>★</label>
+            </div>
+          </li>
+          <li>
+            <!--<div class="<%= art.id %>"></div>-->
+            <div id="<%= art.id %>" style="position: relative; height:160px; width:330px"></div>
+          </li>
+
+          <li>歌詞</li>
+          <li>長さ</li>
+
+          <li>
+            <div class="evaluation">
+              <input id="star1" type="radio" name="star" value="1"/>
+              <label for="star1" class="<%= "star" if art.lyrics == 1 %>">
+                <span class="text">日本語</span>★</label>
+              <input id="star2" type="radio" name="star" value="2"/>
+              <label for="star2" class="<%= "star" if art.lyrics == 2 %>">★</label>
+              <input id="star3" type="radio" name="star" value="3"/>
+              <label for="star3" class="<%= "star" if art.lyrics == 3 %>">
+                <span class="text">両方</span>★</label>
+              <input id="star4" type="radio" name="star" value="4"/>
+              <label for="star4" class="<%= "star" if art.lyrics == 4 %>">★</label>
+              <input id="star5" type="radio" name="star" value="5"/>
+              <label for="star5" class="<%= "star" if art.lyrics == 5 %>">
+                <span class="text">英語</span>★</label>
+            </div>
+          </li>
+          <li>
+            <div class="evaluation">
+              <input id="star1" type="radio" name="star" value="1"/>
+              <label for="star1" class="<%= "star" if art.length == 1 %>">
+                <span class="text">短い</span>★</label>
+              <input id="star2" type="radio" name="star" value="2"/>
+              <label for="star2" class="<%= "star" if art.length == 2 %>">★</label>
+              <input id="star3" type="radio" name="star" value="3"/>
+              <label for="star3" class="<%= "star" if art.length == 3 %>">
+                <span class="text">普通</span>★</label>
+              <input id="star4" type="radio" name="star" value="4"/>
+              <label for="star4" class="<%= "star" if art.length == 4 %>">★</label>
+              <input id="star5" type="radio" name="star" value="5"/>
+              <label for="star5" class="<%= "star" if art.length == 5 %>">
+                <span class="text">長い</span>★</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+    <%= paginate @arthists %>
+</div>
+
+<% @arthists.each do |art| %>
+  <script>
+
+    function ajaxDataYoutube() {
+      data = {
+        labels: [
+          '10代',
+          '20代',
+          '30代',
+          '40代',
+          '50代',
+          '60代～'
+        ],
+        datasets: [
+          {
+            data: [
+              <%= art.generation1 %>,
+              <%= art.generation2 %>,
+              <%= art.generation3 %>,
+              <%= art.generation4 %>,
+              <%= art.generation5 %>,
+              <%= art.generation6 %>
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235,0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)'
+            ],
+            borderWidth: 1
+          }
+        ] // これらのラベルは凡例とツールチップに表示されます。
+      };
+
+      option = {
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: '世代データ',
+          fontSize: 16 //フォントサイズ
+        },
+        responsive: true,
+        scales: { //軸設定
+          yAxes: [
+            { //y軸設定
+              display: false, //表示設定
+              scaleLabel: { //軸ラベル設定
+                display: false, //表示設定
+                labelString: '縦軸ラベル', //ラベル
+                fontSize: 18 //フォントサイズ
+              },
+              ticks: { //最大値最小値設定
+                min: 0,
+                max: <%= [art.generation1,art.generation2,art.generation3,art.generation4,art.generation4,art.generation6].max %>, //最小値
+                fontSize: 18, //フォントサイズ
+                stepSize: 20 //軸間隔
+              }
+            }
+          ],
+          xAxes: [
+            { //x軸設定
+              display: true, //表示設定
+              gridLines: {
+                display: false
+              },
+              barPercentage: 1, //棒グラフ幅
+              categoryPercentage: 0.7, //棒グラフ幅
+              scaleLabel: { //軸ラベル設定
+                display: false, //表示設定
+                labelString: '横軸ラベル', //ラベル
+                fontSize: 18 //フォントサイズ
+              },
+              ticks: {
+                fontSize: 12 //フォントサイズ
+              }
+            }
+          ]
+        }
+      }
+      var ctxx = document.createElement('canvas');
+      var ctx = ctxx.getContext('2d');
+      ctx.canvas.width = 100;
+      ctx.canvas.height = 50;
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: option
+      });
+
+      return $.ajax({
+        type: 'GET',
+        url: 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&maxResults=1&q=<%= art.name %>&key=AIzaSyC9JsicNKQlSdnJFE_iTDDlJq8KN5i2DrM',
+        dataType: 'json',
+        error: function () {
+          //  error func
+          $('#<%= art.id %>').empty();
+          $('#<%= art.id %>').append(ctxx);
+        }
+      })
+    }
+    ajaxDataYoutube().done(function (jsondataYt) {
+      var ytID = jsondataYt.items[0].id.videoId
+      var ytTitle = jsondataYt.items[0].snippet.title
+      var YtHtml = '<iframe height="170" width="300" src="https://www.youtube.com/embed/' + ytID + '?controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen> <\/iframe>'
+      $('#<%= art.id %>').empty();
+      $('#<%= art.id %>').append(YtHtml);
+    });
+  </script>
+
+<% end %>
+
+<% end %>
+
+<% if !(@check.blank?) %>
+<script>
+  function checkalert() {
+    alert('アーティスト情報の登録数が足りません');
+    return false;
+  }
+</script>
+<% end %>
+
+<%= javascript_include_tag 'application' %>
+<script>
+  $(function() {
+
+  // ボタンクリックで時刻を更新
+  $('#arthist_name').click(function() {
+    $(this).blur() ;	//ボタンからフォーカスを外す
+if($("#overlay")[0]) return false ;
+    //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
+  $("body").append('<div id="overlay"></div>');
+
+  //[$modal-overlay]をフェードインさせる
+  $("#overlay").fadeIn("slow");
+  centeringModalSyncer();
+  $("#sreach2").fadeIn("slow");
+
+  });
+  $("#modal-close").unbind().click(function(){
+    $("#sreach2,#overlay").fadeOut("slow",function(){
+        	$("#overlay").remove();
+        });
+    });
+    $(document).on("click", "#overlay", function(){
+      $("#sreach2,#overlay").fadeOut("slow",function(){
+          	$("#overlay").remove();
+          });
+});
+
+
+});
+  $( window ).resize( centeringModalSyncer );
+function centeringModalSyncer(){
+
+  var w = $( window ).width();
+     var h = $( window ).height();
+     var cw = $( "#sreach2" ).outerWidth();
+     var ch = $( "#sreach2" ).outerHeight();
+     $( "#sreach2" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} );
+}
+
+var nowchecked = [];
+$('input[type="radio"]:checked').each(function(){
+  nowchecked.push( $(this).attr('id') );
+});
+
+$('input[type="radio"]').click(function(){
+  var idx = $.inArray( $(this).attr('id'), nowchecked );
+  if( idx >= 0 ) {
+    $(this).prop('checked', false);
+    nowchecked.splice(idx,1);
+  } else {
+    var name = $(this).attr('name');
+    $('input[name="' + name + '"]').each(function(){
+      var idx2 = $.inArray( $(this).attr('id'), nowchecked);
+      if( idx2 >= 0 ){
+        nowchecked.splice(idx2,1);
+      }
+    });
+    nowchecked.push( $(this).attr('id') );
+  }
+});
+
+</script>
