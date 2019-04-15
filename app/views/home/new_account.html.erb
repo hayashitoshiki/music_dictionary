@@ -4,8 +4,8 @@
   <div id="new_account_back">
     <h2>アカウント登録</h2>
     <P>性別</P>
-    <input type="radio" name="gender" value="1">男性
-    <input type="radio" name="gender" value="2">女性
+    <input type="radio" name="gender" value="1" <%= checked="checked" if @gender == "1" %>>男性
+    <input type="radio" name="gender" value="2" <%= checked="checked" if @gender == "2" %>>女性
     <div class="error">
       <%= flash[:gender] %>　
     </div>
@@ -23,22 +23,22 @@
       <%= flash[:birthday] %>　
     </div>
     <p>メールアドレス</p>
-    <input type="text" name="email">
+    <input type="text" name="email" value="<%= @email %>">
     <div class="error">
       <%= flash[:email] %>　
     </div>
     <p>アカウントID</p>
-    <input type="text" name="name">
+    <input type="text" name="name" value="<%= @name %>">
     <div class="error">
       <%= flash[:name] %>　
     </div>
-    <p>パスワード</p>
-    <input type="text" name="pw">
+    <p>パスワード(半角英数６文字以上)</p>
+    <input type="password" name="pw">
     <div class="error">
       <%= flash[:pw] %>　
     </div>
     <p>確認用パスワード</p>
-    <input type="text" name="pw2">
+    <input type="password" name="pw2">
     <div class="error">
       <%= flash[:pw2] %>　
     </div>

@@ -1,0 +1,2 @@
+class WarnUArthist < ApplicationRecord
+end

@@ -4,16 +4,9 @@
       <%= @notice %>
     </div>
     <p>登録したアーティスト</p>
-
-    <% @arthists.each do |arthist| %>
-      <div id="center">
-        <p class="inline">
-          <%= arthist.arthist %>
-        </p>
-        <%= link_to '変更',{:controller => 'home', :action => 'update_arthist', :arthist => arthist.arthist}, class: "account_button" %>
-        <%= link_to '削除',{ :controller => 'arthist', :action => 'delete', :arthist => arthist.arthist}, class: "account_button" %>
-      </div>
-    <% end %>
+    <div id="items">
+    <%= render :partial => "items" %>
+    </div>
 
     <a href="/account/set_arthist" class="account_button2">アーティスト情報登録</a>
 

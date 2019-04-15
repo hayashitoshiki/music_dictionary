@@ -1,6 +1,6 @@
 <%= form_tag("/account/set_arthist/#{@arthist.id}" )do %>
-<div id="set_arthist_center">
-  <div id="feature_back">
+<div id="center">
+  <div id="setting_back">
     <p id="update_title"><%= @arthist.arthist %></p>
     <p>ボーカル</p>
     <input type="radio" name="gender" id="" value= "1" <%= checked="checked" if @arthist.gender == 1 %>>男性
@@ -40,22 +40,31 @@
     <div>英語</div>
 
     <p>ジャンル</p>
-    <select name="genre1">
+    <select name="genre1" id="genre1">
       <option value="0"></option>
-      <option value="1" <%= selected="selected" if @arthist.genre1 == 1 %>>J-ROCK</option>
-      <option value="2" <%= selected="selected" if @arthist.genre1 == 2 %>>J-POP</option>
-      <option value="3" <%= selected="selected" if @arthist.genre1 == 3 %>>ROCK</option>
-      <option value="4" <%= selected="selected" if @arthist.genre1 == 4 %>>POPS</option>
+      <option value="J-ROCK" <%= selected="selected" if @arthist.genre1 == "J-ROCK" %>>J-ROCK</option>
+      <option value="J-POP" <%= selected="selected" if @arthist.genre1 == "J-POP" %>>J-POP</option>
+      <option value="ROCK" <%= selected="selected" if @arthist.genre1 == "ROCK" %>>ROCK</option>
+      <option value="POPS" <%= selected="selected" if @arthist.genre1 == "POPS" %>>POPS</option>
     </select>
 
     <p>ジャンル2</p>
-    <select name="genre2">
+    <select name="genre2" id="genre2">
       <option value="0"></option>
-      <option value="1" <%= selected="selected" if @arthist.genre2 == 1 %>>メロコア</option>
-      <option value="2" <%= selected="selected" if @arthist.genre2 == 2 %>>パンク</option>
-      <option value="3" <%= selected="selected" if @arthist.genre2 == 3 %>>ラウド</option>
-      <option value="4" <%= selected="selected" if @arthist.genre2 == 4 %>>メタル</option>
-      <option value="5" <%= selected="selected" if @arthist.genre2 == 5 %>>その他</option>
+      <% if @arthist.genre1 == "J-ROCK" || @arthist.genre1 == "ROCK" %>
+      <option value="メロコア" <%= selected="selected" if @arthist.genre2 == "メロコア" %>>メロコア</option>
+      <option value="パンク" <%= selected="selected" if @arthist.genre2 == "パンク" %>>パンク</option>
+      <option value="ラウド" <%= selected="selected" if @arthist.genre2 == "ラウド" %>>ラウド</option>
+      <option value="メタル" <%= selected="selected" if @arthist.genre2 == "メタル" %>>メタル</option>
+      <option value="オルタナティブ" <%= selected="selected" if @arthist.genre2 == "オルタナティブ" %>>オルタナティブ</option>
+      <option value="ミクスチャー" <%= selected="selected" if @arthist.genre2 == "ミクスチャー" %>>ミクスチャー</option>
+      <option value="その他" <%= selected="selected" if @arthist.genre2 == "その他" %>>その他</option>
+      <% elsif @arthist.genre1 == "J-POP" || @arthist.genre1 == "POPS" %>
+      <option value="アニソン" <%= selected="selected" if @arthist.genre2 == "アニソン" %>>アニソン</option>
+      <option value="演歌" <%= selected="selected" if @arthist.genre2 == "演歌" %>>演歌</option>
+      <option value="アイドル" <%= selected="selected" if @arthist.genre2 == "アイドル" %>>アイドル</option>
+      <option value="その他" <%= selected="selected" if @arthist.genre2 == "その他" %>>その他</option>
+      <% end %>
     </select>
 
     <p>歌詞の特徴</p>
@@ -70,17 +79,8 @@
       <option value="7" <%= selected="selected" if @arthist.lyrics_genre == 7 %>>その他</option>
     </select>
 
-    <p>重点を置く音</p>
-    <select name="pick_up">
-      <option value="0"></option>
-      <option value="1" <%= selected="selected" if @arthist.pick_up == 1 %>>ボーカル</option>
-      <option value="2" <%= selected="selected" if @arthist.pick_up == 2 %>>ギター</option>
-      <option value="3" <%= selected="selected" if @arthist.pick_up == 3 %>>ベース</option>
-      <option value="4" <%= selected="selected" if @arthist.pick_up == 4 %>>ドラム</option>
-      <option value="5" <%= selected="selected" if @arthist.pick_up == 5 %>>その他</option>
-    </select>
-
     <input type="submit" id="update_push" value="登録">
   </div>
 </div>
+
 <% end %>

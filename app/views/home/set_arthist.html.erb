@@ -1,86 +1,112 @@
 <%= form_tag("/account/set_arthist/create")do %>
-<div id="set_arthist_center">
-  <div id="feature_back">
-    <p>アーティスト情報登録</p>
+<div id="center">
+  <div id="setting_back">
+    <p style="font-size:30px">アーティスト情報登録</p>
     <p>名前</p>
-    <input type="text" name="arthist">
+    <input type="text" name="arthist" value="<%= @name %>">
     <div class="error"><%= flash[:name] %></div>
     <p>ボーカル</p>
-    <input type="radio" name="gender" id="" value="1">男性
-    <input type="radio" name="gender" id="" value="2">女性
+    <div style="display:block">
+      <input type="radio" name="gender" id="" value= "1" <%= checked="checked" if @gender == 1 %>>男性
+      <input type="radio" name="gender" id="" value= "2" <%= checked="checked" if @gender == 2 %>>女性
+    </div>
+    <div class="error">
+      <%= flash[:gender] %>　
+    </div>
 
     <p>声の高さ</p>
     <div>低い</div>
     <div>
-      <input type="radio" name="voice" value="1">
-      <input type="radio" name="voice" value="2">
-      <input type="radio" name="voice" value="3">
-      <input type="radio" name="voice" value="4">
-      <input type="radio" name="voice" value="5">
+      <input type="radio" name="voice" value="1" <%= checked="checked" if @voice == 1 %>>
+      <input type="radio" name="voice" value="2" <%= checked="checked" if @voice == 2 %>>
+      <input type="radio" name="voice" value="3" <%= checked="checked" if @voice == 3 %>>
+      <input type="radio" name="voice" value="4" <%= checked="checked" if @voice == 4 %>>
+      <input type="radio" name="voice" value="5" <%= checked="checked" if @voice == 5 %>>
     </div>
     <div>高い</div>
+    <div class="error">
+      <%= flash[:voice] %>　
+    </div>
 
     <p>曲の長さ</p>
     <div>短い</div>
     <div>
-      <input type="radio" name="length" value="1">
-      <input type="radio" name="length" value="2">
-      <input type="radio" name="length" value="3">
-      <input type="radio" name="length" value="4">
-      <input type="radio" name="length" value="5">
+      <input type="radio" name="length" value="1" <%= checked="checked" if @length == 1 %>>
+      <input type="radio" name="length" value="2" <%= checked="checked" if @length == 2 %>>
+      <input type="radio" name="length" value="3" <%= checked="checked" if @length == 3 %>>
+      <input type="radio" name="length" value="4" <%= checked="checked" if @length == 4 %>>
+      <input type="radio" name="length" value="5" <%= checked="checked" if @length == 5 %>>
     </div>
     <div>長い</div>
+    <div class="error">
+      <%= flash[:length] %>　
+    </div>
 
     <p>歌詞</p>
     <div>日本語</div>
     <div>
-      <input type="radio" name="lyrics" value="1">
-      <input type="radio" name="lyrics" value="2">
-      <input type="radio" name="lyrics" value="3">
-      <input type="radio" name="lyrics" value="4">
-      <input type="radio" name="lyrics" value="5">
+      <input type="radio" name="lyrics" value="1" <%= checked="checked" if @lyrics == 1 %>>
+      <input type="radio" name="lyrics" value="2" <%= checked="checked" if @lyrics == 2 %>>
+      <input type="radio" name="lyrics" value="3" <%= checked="checked" if @lyrics == 3 %>>
+      <input type="radio" name="lyrics" value="4" <%= checked="checked" if @lyrics == 4 %>>
+      <input type="radio" name="lyrics" value="5" <%= checked="checked" if @lyrics == 5 %>>
     </div>
     <div>英語</div>
+    <div class="error">
+      <%= flash[:lyrics] %>　
+    </div>
 
     <p>ジャンル</p>
-    <select name="genre1">
+    <select name="genre1" id="genre1">
       <option value="0"></option>
-      <option value="1">J-ROCK</option>
-      <option value="2">J-POP</option>
-      <option value="3">ROCK</option>
-      <option value="4">POPS</option>
+      <option value="J-ROCK" <%= selected="selected" if @genre1 == "J-ROCK" %>>J-ROCK</option>
+      <option value="J-POP" <%= selected="selected" if @genre1 == "J-POP" %>>J-POP</option>
+      <option value="ROCK" <%= selected="selected" if @genre1 == "ROCK" %>>ROCK</option>
+      <option value="POPS" <%= selected="selected" if @genre1 == "POPS" %>>POPS</option>
     </select>
+    <div class="error">
+      <%= flash[:genre1] %>　
+    </div>
 
     <p>ジャンル2</p>
     <select name="genre2" id="genre2">
       <option value="0">　　　　</option>
+      <% if @genre1 == "J-ROCK" || @genre1 == "ROCK" %>
+      <option value="メロコア" <%= selected="selected" if @genre2 == "メロコア" %>>メロコア</option>
+      <option value="パンク" <%= selected="selected" if @genre2 == "パンク" %>>パンク</option>
+      <option value="ラウド" <%= selected="selected" if @genre2 == "ラウド" %>>ラウド</option>
+      <option value="メタル" <%= selected="selected" if @genre2 == "メタル" %>>メタル</option>
+      <option value="オルタナティブ" <%= selected="selected" if @genre2 == "オルタナティブ" %>>オルタナティブ</option>
+      <option value="ミクスチャー" <%= selected="selected" if @genre2 == "ミクスチャー" %>>ミクスチャー</option>
+      <option value="その他" <%= selected="selected" if @genre2 == "その他" %>>その他</option>
+      <% elsif @genre1 == "J-POP" || @genre1 == "POPS" %>
+      <option value="アニソン" <%= selected="selected" if @genre2 == "アニソン" %>>アニソン</option>
+      <option value="演歌" <%= selected="selected" if @genre2 == "演歌" %>>演歌</option>
+      <option value="アイドル" <%= selected="selected" if @genre2 == "アイドル" %>>アイドル</option>
+      <option value="その他" <%= selected="selected" if @genre2 == "その他" %>>その他</option>
+      <% end %>
     </select>
+    <div class="error">
+      <%= flash[:genre2] %>　
+    </div>
 
     <p>歌詞の特徴</p>
     <select name="lyrics_genre">
       <option value="0"></option>
-      <option value="1">応援</option>
-      <option value="2">政治</option>
-      <option value="3">社会</option>
-      <option value="4">恋愛</option>
-      <option value="5">季節</option>
-      <option value="6">ネタ</option>
-      <option value="7">その他</option>
+      <option value="1" <%= selected="selected" if @lyrics_genre == 1 %>>応援</option>
+      <option value="2" <%= selected="selected" if @lyrics_genre == 2 %>">政治</option>
+      <option value="3" <%= selected="selected" if @lyrics_genre == 3 %>>社会</option>
+      <option value="4" <%= selected="selected" if @lyrics_genre == 4 %>>恋愛</option>
+      <option value="5" <%= selected="selected" if @lyrics_genre == 5 %>>季節</option>
+      <option value="6" <%= selected="selected" if @lyrics_genre == 6 %>>ネタ</option>
+      <option value="7" <%= selected="selected" if @lyrics_genre == 7 %>>その他</option>
     </select>
-
-    <p>重点を置く音</p>
-    <select name="pick_up">
-      <option value="0"></option>
-      <option value="1">ボーカル</option>
-      <option value="2">ギター</option>
-      <option value="3">ベース</option>
-      <option value="4">ドラム</option>
-      <option value="5">その他</option>
-    </select>
+    <div class="error">
+      <%= flash[:lyrics_genre] %>　
+    </div>
 
     <input type="submit" id="update_push" value="登録">
   </div>
-</div>
-<% end %>
+  </div>
 
-<%= javascript_include_tag 'application' %>
+<% end %>

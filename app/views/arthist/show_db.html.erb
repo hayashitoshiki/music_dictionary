@@ -1,85 +1,3 @@
-<div id="feature_back">
-  <p><a id="modal-close" class="button-link">閉じる</a></p>
-  <%= form_tag("/feature/result")do %>
-  <p>ボーカル</p>
-  <input type="radio" name="gender" id="gender1" value="1">男性
-  <input type="radio" name="gender" id="gender2" value="2">女性
-
-  <p>声の高さ</p>
-  <div>低い</div>
-  <div>
-    <input type="radio" id="voice1" name="voice" value="1">
-    <input type="radio" id="voice2" name="voice" value="2">
-    <input type="radio" id="voice3" name="voice" value="3">
-    <input type="radio" id="voice4" name="voice" value="4">
-    <input type="radio" id="voice5" name="voice" value="5">
-  </div>
-  <div>高い</div>
-
-  <p>曲の長さ</p>
-  <div>短い</div>
-  <div>
-    <input type="radio" id="length1" name="length" value="1">
-    <input type="radio" id="length2" name="length" value="2">
-    <input type="radio" id="length3" name="length" value="3">
-    <input type="radio" id="length4" name="length" value="4">
-    <input type="radio" id="length5" name="length" value="5">
-  </div>
-  <div>長い</div>
-
-  <p>歌詞</p>
-  <div>日本語</div>
-  <div>
-    <input type="radio" id="lyrics1" name="lyrics" value="1">
-    <input type="radio" id="lyrics2" name="lyrics" value="2">
-    <input type="radio" id="lyrics3" name="lyrics" value="3">
-    <input type="radio" id="lyrics4" name="lyrics" value="4">
-    <input type="radio" id="lyrics5" name="lyrics" value="5">
-  </div>
-  <div>英語</div>
-
-  <p>ジャンル</p>
-  <select name="genre1">
-    <option value="0">指定なし</option>
-    <option value="1">J-ROCK</option>
-    <option value="2">J-POP</option>
-    <option value="3">ROCK</option>
-    <option value="4">POPS</option>
-  </select>
-
-  <p>ジャンル2</p>
-  <select name="genre2" id="genre2">
-    <option value="0">　　　　</option>
-
-  </select>
-
-  <p>歌詞の特徴</p>
-  <select name="lyrics_genre">
-    <option value="0">指定なし</option>
-    <option value="1">応援</option>
-    <option value="2">政治</option>
-    <option value="3">社会</option>
-    <option value="4">恋愛</option>
-    <option value="5">季節</option>
-    <option value="6">ネタ</option>
-    <option value="7">その他</option>
-  </select>
-
-  <p>年代</p>
-  <select name="generation">
-    <option value="0">指定なし</option>
-    <option value="1">10代</option>
-    <option value="2">20代</option>
-    <option value="3">30代</option>
-    <option value="4">40代</option>
-    <option value="5">50代</option>
-    <option value="6">60代～</option>
-  </select>
-
-  <input type="submit" value="検索" id="search_push">
-
-<% end %>
-</div>
 <div id="center">
   <div id="show_base">
     <p>User×Arthist</p>
@@ -95,19 +13,24 @@
         <td>ジャンル２</td>
         <td>年齢</td>
         <td>歌詞の特徴</td>
-        <td>重点を置く音</td>
         <td>アカウント名</td>
       </tr>
-
-      <div style="margin-top: 90px">
-        <input type="button" id="arthist_name" value="特徴検索へ" onclick="hyoji1">
-      </div>
-
-
+      <% @uarthists.each do |uarthist| %>
+        <tr>
+          <td><%=uarthist.id %></td>
+          <td><%= uarthist.arthist %></td>
+          <td><%= uarthist.gender %></td>
+          <td><%= uarthist.voice %></td>
+          <td><%= uarthist.length %></td>
+          <td><%= uarthist.lyrics %></td>
+          <td><%= uarthist.genre1 %></td>
+          <td><%= uarthist.genre2 %></td>
+          <td><%= uarthist.generation %></td>
+          <td><%= uarthist.lyrics_genre %></td>
+          <td><%= uarthist.account %></td>
+        </tr>
+      <% end %>
     </table>
-
-
-
 
     <p>Arthist</p>
     <table>
@@ -127,7 +50,6 @@
         <td>50代</td>
         <td>60代</td>
         <td>歌詞の特徴</td>
-        <td>重点を置く音</td>
         <td>登録数</td>
       </tr>
       <% @arthists.each do |arthist| %>
@@ -147,7 +69,6 @@
           <td><%= arthist.generation5 %></td>
           <td><%= arthist.generation6 %></td>
           <td><%= arthist.lyrics_genre %></td>
-          <td><%= arthist.pick_up %></td>
           <td><%= arthist.count %></td>
         </tr>
       <% end %>
@@ -176,71 +97,39 @@
         </tr>
       <% end %>
     </table>
+
+    <p>Warn_Arthist</p>
+    <table>
+      <tr>
+        <td>id</td>
+        <td>アーティスト名</td>
+        <td>アーティスト名が違う</td>
+        <td>存在しないアーティスト</td>
+      </tr>
+      <% @warn.each do |w| %>
+        <tr>
+          <td><%=w.id %></td>
+          <td><%= w.name %></td>
+          <td><%= w.wrong_name %></td>
+          <td><%= w.exist_name %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <p>Warn_U_Arthist</p>
+    <table>
+      <tr>
+        <td>id</td>
+        <td>ユーザー名</td>
+        <td>アーティスト名</td>
+      </tr>
+      <% @wuas.each do |wua| %>
+        <tr>
+          <td><%=wua.id %></td>
+          <td><%= wua.user %></td>
+          <td><%= wua.arthist %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>
-<% @uarthists.each do |uarthist| %>
-  <tr>
-    <td><%=uarthist.id %></td>
-    <td><%= uarthist.arthist %></td>
-    <td><%= uarthist.gender %></td>
-    <td><%= uarthist.voice %></td>
-    <td><%= uarthist.length %></td>
-    <td><%= uarthist.lyrics %></td>
-    <td><%= uarthist.genre1 %></td>
-    <td><%= uarthist.genre2 %></td>
-    <td><%= uarthist.generation %></td>
-    <td><%= uarthist.lyrics_genre %></td>
-    <td><%= uarthist.pick_up %></td>
-    <td><%= uarthist.account %></td>
-  </tr>
-<% end %>
-
-
-<script>
-  $(function() {
-  // ボタンクリックで時刻を更新
-  $('#arthist_name').click(function() {
-    $(this).blur() ;	//ボタンからフォーカスを外す
-if($("#overlay")[0]) return false ;
-    //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
-  $("body").append('<div id="overlay"></div>');
-
-  //[$modal-overlay]をフェードインさせる
-  $("#overlay").fadeIn("slow");
-  $("#feature_back").fadeIn("slow");
-
-  });
-  $("#modal-close").unbind().click(function(){
-    $("#feature_back,#overlay").fadeOut("slow",function(){
-        	$("#overlay").remove();
-        });
-    });
-    $(document).on("click", "#overlay", function(){
-      $("#feature_back,#overlay").fadeOut("slow",function(){
-          	$("#overlay").remove();
-          });
-});
-
-});
-</script>
-
-
-<!--<script>
-  function ajaxDataYoutube(){
-     return $.ajax({
-               type: 'GET',
-               url: 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&maxResults=1&q=10-FEET&key=AIzaSyC9JsicNKQlSdnJFE_iTDDlJq8KN5i2DrM',
-               dataType: 'json',
-               error: function() {
-                   //error func
-                   $('#youtube ul').append('<li>Youtubeのデータが取得できませんでした。<\/li>');
-               }
-       })
-   }
-     ajaxDataYoutube().done(function(jsondataYt){
-       var ytID = jsondataYt.items[0].id.videoId
-       var ytTitle = jsondataYt.items[0].snippet.title
-       var YtHtml = '<iframe width="369" height="207" src="https://www.youtube.com/embed/' + ytID + '?controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen><\/iframe><h4>'+ ytTitle +'<\/h4>'
-       $('#youtube ul').append(YtHtml);
-     });
-</script>-->

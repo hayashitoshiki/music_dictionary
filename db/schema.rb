@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_120451) do
+ActiveRecord::Schema.define(version: 2019_03_12_004314) do
 
   create_table "arthists", force: :cascade do |t|
     t.string "name"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2019_02_20_120451) do
     t.integer "voice"
     t.integer "length"
     t.integer "lyrics"
-    t.integer "genre1"
-    t.integer "genre2"
+    t.string "genre1"
+    t.string "genre2"
     t.integer "lyrics_genre"
     t.integer "generation"
     t.integer "pick_up"
@@ -56,6 +56,21 @@ ActiveRecord::Schema.define(version: 2019_02_20_120451) do
     t.integer "age"
     t.integer "birthday"
     t.integer "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "warn_arthists", force: :cascade do |t|
+    t.string "name"
+    t.integer "wrong_name"
+    t.integer "exist_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "warn_u_arthists", force: :cascade do |t|
+    t.string "user"
+    t.string "arthist"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

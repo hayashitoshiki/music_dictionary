@@ -12,9 +12,8 @@
  *
  *= require_self
  */
-
- // Custom bootstrap variables must be set or imported *before* bootstrap.
- @import "bootstrap";
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
 
 body {
   background-image: url("home_bg.jpg");
@@ -25,24 +24,20 @@ body {
 body::after {
   background-color: rgba(0, 0, 0, 0.50);
   position: fixed;
-  /*固定配置*/
   top: 0;
   left: 0;
-  /*左上に固定*/
   width: 100%;
   height: 100%;
-  /*画面全体を覆う*/
   content: "";
   z-index: -1;
-  /*背景にするため*/
 }
 
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
-header{
+header {
   z-index: 1;
 }
 
@@ -83,12 +78,12 @@ header{
 #sreach {
   display: inline-block;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: auto;
-  width: 600px;
+
   height: 300px;
   text-align: center;
 }
@@ -96,8 +91,7 @@ header{
 #title {
   font-size: 65px;
   font-family: serif;
-  margin: auto;
-  margin-bottom: 25px;
+  margin: auto auto 25px;
   color: rgb(212, 212, 212);
 }
 
@@ -110,7 +104,13 @@ header{
   outline: none;
   color: #FFF;
   background-image: linear-gradient(45deg, #025979, #1B334B);
-  transition: .4s;
+  transition: 0.4s;
+}
+
+#arthist_name:hover {
+  text-decoration:none;
+  background: #00bcd4;
+  color: white;
 }
 
 #music_about {
@@ -120,30 +120,43 @@ header{
   text-decoration: none;
   color: #FFF;
   background-image: linear-gradient(45deg, #7e5f01, #ff8b5f);
-  transition: .4s;
+  transition: 0.4s;
 }
-
 /*------------詳細検索---------*/
-#overlay{
-  z-index:1;
-  	display:none;
-  	position:fixed;
-  	top:0;
-  	left:0;
-  	width:100%;
-  	height:120%;
-  	background-color:rgba(0,0,0,0.75);
-}
-#sreach2{
 
-position:fixed;
-padding: 2px;
-margin: 5px;
+#overlay {
+  z-index: 1;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-color: rgba(0,0,0,0.75);
+}
+
+#sreach2 {
+  position: fixed;
+  padding: 2px;
+  margin: 5px;
   text-align: center;
   display: none;
   z-index: 9999;
-  border:2px solid #aaa;
-  background:#fff;
+  border-radius: 10px;
+  border: 2px solid #aaa;
+  background: #fff;
+}
+
+#warning_base {
+  position: fixed;
+  padding: 2px;
+  margin: 5px;
+  text-align: center;
+  display: none;
+  z-index: 9999;
+  border-radius: 10px;
+  border: 2px solid #aaa;
+  background: #fff;
 }
 
 #center {
@@ -151,8 +164,8 @@ margin: 5px;
 }
 
 #feature_back {
-	border:2px solid #aaa;
-	background:#fff;
+  border: 2px solid #aaa;
+  background: #fff;
 }
 
 #sreach2 div {
@@ -169,7 +182,13 @@ margin: 5px;
   text-decoration: none;
   color: #FFF;
   background-image: linear-gradient(45deg, #9697a8 0%, #595d69 100%);
-  transition: .4s;
+  transition: 0.4s;
+}
+
+#search_push:hover {
+  text-decoration:none;
+  background: #00bcd4;
+  color: white;
 }
 
 select {
@@ -219,29 +238,19 @@ select {
   float: right;
 }
 
-.f_title_left {
-  float: left;
-}
-
-.f_title_right {
-  float: right;
-}
-
 input[type=radio] {
   width: 30px;
   height: 30px;
   vertical-align: middle;
 }
-
 /*-----------検索結果------------------*/
-
 #result_base {
   display: inline-block;
   width: 45%;
   padding: 0;
   background: rgba(255, 255, 255, 0.73);
   font-size: 25px;
-  margin-top: 450px;
+  margin-top: 490px;
   width: 700px;
 }
 
@@ -266,10 +275,53 @@ input[type=radio] {
   display: inline-block;
 }
 
-.kari {
-  width: 250px;
-  height: 130px;
+.result_genre{
+  display: table;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  font-size: 15px;
+  color: #f2f2f2;
+  background-image: linear-gradient(45deg, #025979, #1B334B);
+  /*色*/
+  border: solid 1px #002634;
+  /*線色*/
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin: 5px auto auto;
 }
+
+.result_count{
+  display: inline;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  margin-left: 340px;
+}
+
+
+#warning{
+  position: absolute;
+  display: inline-block;
+  right: 0px;
+  top: 5px;
+  color: #FFF;
+  background-image: linear-gradient(45deg, rgb(205, 47, 47) 0%, rgb(159, 0, 0) 100%);
+}
+
+#warning2{
+  position: absolute;
+  display: inline-block;
+  right: 0px;
+  top: 5px;
+  color: #FFF;
+  background-image: linear-gradient(45deg, rgb(221, 0, 0) 0%, #8f909a 100%);
+}
+
+#warning:hover {
+  background: #00bcd4;
+  color: white;
+}
+
 
 .evaluation {
   display: flex;
@@ -305,15 +357,14 @@ input[type=radio] {
 }
 
 /*-------------------ログイン---------*/
-
 #login_back {
   background-color: rgba(224, 224, 224, 1);
   display: inline-block;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: auto;
   width: 340px;
   height: 255px;
@@ -321,6 +372,7 @@ input[type=radio] {
 }
 
 .error {
+  display: block;
   color: rgb(255, 0, 0);
 }
 
@@ -332,17 +384,15 @@ input[type=radio] {
   height: 300px;
   text-align: center;
 }
-
 /*---------------------------------------------*/
-
 #new_account_back {
   background-color: rgba(224, 224, 224, 1);
   display: inline-block;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   margin: auto;
   width: 300px;
   height: 640px;
@@ -358,18 +408,18 @@ input[type=radio] {
   width: 1000px;
 }
 
-table th, table td {
+table td,
+table th {
   border: solid 1px black;
   /*実線 1px 黒*/
 }
-
 /*------------------アカウント詳細画面---------------*/
-
 #account_back {
   display: inline-block;
   background: rgba(255, 255, 255, 0.73);
   text-align: center;
   margin-top: 160px;
+  min-width: 350px;
   width: 25%;
 }
 
@@ -384,14 +434,19 @@ table th, table td {
   border-radius: 4px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  margin: auto;
-  margin-top: 5px;
+  margin: 5px auto auto;
+}
+.account_button:hover {
+  text-decoration:none;
+  background: #00bcd4;
+  color: white;
 }
 
 .account_button2 {
   display: table;
   padding: 0.25em 0.5em;
-  text-decoration: none;font-size: 15px;
+  text-decoration: none;
+  font-size: 15px;
   color: #f2f2f2;
   background-image: linear-gradient(45deg, #025979, #1B334B);
   /*色*/
@@ -400,16 +455,34 @@ table th, table td {
   border-radius: 4px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  margin: auto;
-  margin-top: 5px;
+  margin: 5px auto auto;
+}
+
+.account_button2:hover {
+  text-decoration:none;
+  background: #00bcd4;
+  color: white;
 }
 
 .inline {
   display: inline-block;
   width: 200px;
 }
-
 /*-------------アーティスト情報変更------------------------*/
+
+#setting_back {
+  display: inline-block;
+  margin-top: 70px;
+  width: 30%;
+  min-width: 350px;
+  text-align: center;
+  border: 2px solid #aaa;
+  background: #fff;
+}
+
+#setting_back div {
+  display: inline-block;
+}
 
 #update_title {
   font-size: 35px;
@@ -424,5 +497,11 @@ table th, table td {
   text-decoration: none;
   color: #FFF;
   background-image: linear-gradient(45deg, #cbd1e2 0%, #8f909a 100%);
-  transition: .4s;
+  transition: 0.4s;
+}
+
+#update_push:hover {
+  text-decoration:none;
+  background: #00bcd4;
+  color: white;
 }

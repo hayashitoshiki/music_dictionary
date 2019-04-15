@@ -1,0 +1,10 @@
+<% @arthists.each do |arthist| %>
+  <div id="center">
+    <p class="inline">
+      <%= arthist.arthist %>
+    </p>
+    <%= link_to '変更',{:controller => 'home', :action => 'update_arthist', :arthist => arthist.arthist}, class: "account_button" %>
+    <%= link_to '削除',{ :controller => 'arthist', :action => 'delete', :arthist => arthist.arthist}, class: "account_button" %>
+  </div>
+<% end %>
+<%= paginate @arthists, :remote => true, window: 2 %>

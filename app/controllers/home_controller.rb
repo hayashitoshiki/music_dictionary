@@ -3,7 +3,6 @@ class HomeController < ApplicationController
     if session[:user_name].blank?
       render('home/start')
     else
-      @user = Arthist.new
       @arthist = Arthist.ransack(params[:q])
       art =UArthist.where(account: session[:user_name]).count
       if 0 < (count = 3 - art)
@@ -12,17 +11,12 @@ class HomeController < ApplicationController
     end
   end
 
-  def feature
-    art =UArthist.where(account: session[:user_name]).count
-    if 0 < (count = 3 - art)
-      @check = "検索するにはあと"+count.to_s+"組アーティスト情報を登録してください"
-    end
- end
-
   def result
     @arthist = Arthist.ransack(params[:q])
     @art = Arthist.search(arthist_params)
-    @arthists = @art.result.page(params[:page]).per(5)
+    @arthists = @art.result.order(name: "ASC").page(params[:page]).per(10)
+    @result_count = @arthists.total_count
+    @wuas = WarnUArthist.all
     render('home/home')
     #@arthist = Arthist.where(name: params[:arthist]).first
   end
@@ -43,7 +37,12 @@ class HomeController < ApplicationController
 
   def account
     @notice = "ユーザー名：#{session[:user_name]}"
-    @arthists = UArthist.where(account: session[:user_name])
+    @arthists = UArthist.where(account: session[:user_name]).order(arthist: "ASC").page(params[:page]).per(10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
   end
 
   def set_arthist
@@ -75,6 +74,9 @@ class HomeController < ApplicationController
     if params[:pw].blank?
       flash[:pw] = 'パスワードを設定してください'
       switch = 1
+    elsif params[:pw].length < 6
+      flash[:pw] = '半角英数６文字以上で入力してください'
+      switch = 1
     elsif !(params[:pw].eql?(params[:pw2]))
       flash[:pw2] = '同じパスワードを入力してください'
       switch = 1
@@ -98,6 +100,9 @@ class HomeController < ApplicationController
       session[:user_name] = params[:name]
       redirect_to('/')
     else
+      @gender = params[:gender]
+      @email = params[:email]
+      @name = params[:name]
       render('home/new_account')
     end
   end
@@ -137,4 +142,29 @@ class HomeController < ApplicationController
     session[:user_name] = nil
     redirect_to('/')
   end
+
+  def set_warning
+    art = Arthist.find_by(id: params[:id])
+    if WarnArthist.where(name: art.name).empty?
+      w_art = WarnArthist.new(name: art.name)
+      if params[:warning_val] == "1"
+        w_art.wrong_name = 1
+        w_art.exist_name = 0
+      else
+        w_art.wrong_name = 0
+        w_art.exist_name = 1
+      end
+    else
+      w_art = WarnArthist.where(name: art.name).first
+      if params[:warning_val] == "1"
+        w_art.wrong_name += 1
+      else
+        w_art.exist_name += 1
+      end
+    end
+    w_art.save
+    w_u_art = WarnUArthist.new(user: session[:user_name], arthist: art.name)
+    w_u_art.save
+    redirect_to("/")
+  end
 end

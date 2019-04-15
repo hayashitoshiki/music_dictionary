@@ -1,26 +1,28 @@
 <div id="sreach">
   <p id="title">Let's find new music</p>
   <p id="error"><%= @check %></p>
-
+<div style="margin-top:100px">
   <%= search_form_for @arthist, url: result_path,:html => {:class => "search_container"} do |f| %>
   <%= f.text_field :name_cont, :placeholder => "アーティスト名", required: true %>
   <input id="sreach1" type="submit" value="&#xf002;" class="fas fa-search" onclick=" return checkalert();">
   <% end %>
+  </div>
   <% if @art.blank? %>
-  <div style="margin-top: 90px">
-    <input type="button" id="arthist_name" value="特徴検索へ" onclick="hyoji1">
+  <div style="margin-top: 135px">
+    <input type="button" id="arthist_name" value="特徴検索へ" onclick="fade(this);">
   </div>
   <% else %>
-  <div style="margin-left: 350px">
-    <input type="button" id="arthist_name" value="特徴検索へ" onclick="hyoji1">
+  <div style="margin-left: 95px">
+    <input type="button" id="arthist_name" value="特徴検索" onclick="fade(this);">
+    <div class="result_count">検索結果:<%= @result_count %>件</div>
   </div>
   <% end %>
 </div>
 
 
 <div id="sreach2">
-
     <p style="font-size:30px">特徴検索</p>
+
     <%= search_form_for @arthist, url: result_path do |t| %>
     <p>ボーカル</p>
     <%= t.radio_button :gender_eq, "男" %> 男性
@@ -55,7 +57,7 @@
 
     <p>ジャンル</p>
     <%= t.select :genre1_cont,[["J-ROCK", "J-ROCK"], ["J-POP", "J-POP"],
-     ["ROCK", "J-POP"], ["POPS", "J-POP"]],{:prompt => "　　"}, :id => 'genre1' %>
+     ["ROCK", "ROCK"], ["POPS", "POPS"]],{:prompt => "　　"}, :id => 'genre1' %>
 
     <p>ジャンル2</p>
     <%= t.select :genre2_cont,[],{:prompt => "　 　"}, :id => 'genre2' %>
@@ -65,9 +67,11 @@
      ["社会", "社会"], ["恋愛", "恋愛"],["ネタ", "ネタ"], ["その他", "その他"]],
        :prompt => "　　" %>
 
-    <%= t.submit "検索" ,:id => "search_push"%>
+    <%= t.submit "検索" ,:id => "search_push" ,:onclick => "return checkalert()" %>
     <% end %>
 </div>
+
+
 
 <% if !(@art.blank?) %>
 <div id="center">
@@ -77,16 +81,19 @@
     <% end %>
 
     <% @arthists.each do |art| %>
-      <div style="height: 360px; border: 1px solid #333333;">
-
+    <% if @wuas.where(arthist: art.name).where(user: session[:user_name]).empty? %>
+      <div style=" height: 360px; border: 1px solid #333333;">
+        <div style=" position: relative; wight:100%;">
         <p class="result_name"><%= art.name %></p>
+        <input type="button" value="通報" id="warning" onclick="fadein(this,<%=art.id %>);">
+        </div>
         <ul>
           <li>
             <div style="display:block">
-              <p class="account_button2"><%= art.gender %></p>
-              <p class="account_button2"><%= art.genre1 %></p>
-              <p class="account_button2"><%= art.genre2 %></p>
-              <p class="account_button2"><%= art.lyrics_genre %></p>
+              <p class="result_genre"><%= art.gender %></p>
+              <p class="result_genre"><%= art.genre1 %></p>
+              <p class="result_genre"><%= art.genre2 %></p>
+              <p class="result_genre"><%= art.lyrics_genre %></p>
             </div>
             声の高さ
             <div class="evaluation">
@@ -149,6 +156,7 @@
           </li>
         </ul>
       </div>
+      <% end %>
     <% end %>
   </div>
     <%= paginate @arthists %>
@@ -178,11 +186,11 @@
               <%= art.generation6 %>
             ],
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
               'rgba(54, 162, 235,0.2)',
-              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
               'rgba(54, 162, 235, 0.2)'
             ],
             borderWidth: 1
@@ -248,7 +256,7 @@
       });
 
       return $.ajax({
-        type: 'GET',
+        type: 'GETA',
         url: 'https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&maxResults=1&q=<%= art.name %>&key=AIzaSyC9JsicNKQlSdnJFE_iTDDlJq8KN5i2DrM',
         dataType: 'json',
         error: function () {
@@ -281,65 +289,28 @@
 <% end %>
 
 <%= javascript_include_tag 'application' %>
+
 <script>
-  $(function() {
-
-  // ボタンクリックで時刻を更新
-  $('#arthist_name').click(function() {
-    $(this).blur() ;	//ボタンからフォーカスを外す
-if($("#overlay")[0]) return false ;
-    //オーバーレイ用のHTMLコードを、[body]内の最後に生成する
-  $("body").append('<div id="overlay"></div>');
-
-  //[$modal-overlay]をフェードインさせる
-  $("#overlay").fadeIn("slow");
-  centeringModalSyncer();
-  $("#sreach2").fadeIn("slow");
-
+  var nowchecked = [];
+  $('input[type="radio"]:checked').each(function() {
+    nowchecked.push($(this).attr('id'));
   });
-  $("#modal-close").unbind().click(function(){
-    $("#sreach2,#overlay").fadeOut("slow",function(){
-        	$("#overlay").remove();
-        });
-    });
-    $(document).on("click", "#overlay", function(){
-      $("#sreach2,#overlay").fadeOut("slow",function(){
-          	$("#overlay").remove();
-          });
-});
 
-
-});
-  $( window ).resize( centeringModalSyncer );
-function centeringModalSyncer(){
-
-  var w = $( window ).width();
-     var h = $( window ).height();
-     var cw = $( "#sreach2" ).outerWidth();
-     var ch = $( "#sreach2" ).outerHeight();
-     $( "#sreach2" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} );
-}
-
-var nowchecked = [];
-$('input[type="radio"]:checked').each(function(){
-  nowchecked.push( $(this).attr('id') );
-});
-
-$('input[type="radio"]').click(function(){
-  var idx = $.inArray( $(this).attr('id'), nowchecked );
-  if( idx >= 0 ) {
-    $(this).prop('checked', false);
-    nowchecked.splice(idx,1);
-  } else {
-    var name = $(this).attr('name');
-    $('input[name="' + name + '"]').each(function(){
-      var idx2 = $.inArray( $(this).attr('id'), nowchecked);
-      if( idx2 >= 0 ){
-        nowchecked.splice(idx2,1);
-      }
-    });
-    nowchecked.push( $(this).attr('id') );
-  }
-});
+  $('input[type="radio"]').click(function() {
+    var idx = $.inArray($(this).attr('id'), nowchecked);
+    if (idx >= 0) {
+      $(this).prop('checked', false);
+      nowchecked.splice(idx, 1);
+    } else {
+      var name = $(this).attr('name');
+      $('input[name="' + name + '"]').each(function() {
+        var idx2 = $.inArray($(this).attr('id'), nowchecked);
+        if (idx2 >= 0) {
+          nowchecked.splice(idx2, 1);
+        }
+      });
+      nowchecked.push($(this).attr('id'));
+    }
+  });
 
 </script>
